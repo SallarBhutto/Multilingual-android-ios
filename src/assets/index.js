@@ -1,4 +1,4 @@
-import images from '../assets/images';
-import icons from './icons/index';
+import images from './images';
+import icons from './icons';
 
 export {images, icons};
