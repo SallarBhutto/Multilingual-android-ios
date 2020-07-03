@@ -12,7 +12,6 @@ class Signup extends Component {
 
   render() {
     const {navigation} = this.props;
-    console.log('StatusBar.currentHeight: ', StatusBar.currentHeight);
     return (
       <View style={Styles.container}>
         {/* Back icon */}
