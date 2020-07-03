@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text} from 'react-native';
+import I18n from '../i18n';
 
 const TextView = (props) => {
   const {text, style = {}, onPress} = props;

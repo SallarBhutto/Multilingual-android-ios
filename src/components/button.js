@@ -1,14 +1,26 @@
 import React, {Component} from 'react';
 import {TouchableOpacity, StyleSheet} from 'react-native';
 import {TextView} from './index';
+import I18n from '../i18n';
 
 const Button = (props) => {
-  const {title, style = {}, hasImage, image, textStyle = {}, onPress} = props;
+  const {
+    title,
+    style = {},
+    hasImage,
+    image,
+    textStyle = {},
+    onPress,
+    disabled = false,
+  } = props;
   return (
     <TouchableOpacity
+      disabled={disabled}
       onPress={onPress}
-      style={[styles.buttonStyles, {...style}]}>
-      <TextView style={{...textStyle, color: 'white'}}> {title} </TextView>
+      style={[styles.buttonStyles, {...style, opacity: disabled ? 0.5 : 1}]}>
+      <TextView style={{...textStyle, color: 'white'}}>
+        {I18n.t(title)}
+      </TextView>
     </TouchableOpacity>
   );
 };

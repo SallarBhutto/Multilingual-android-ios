@@ -78,6 +78,7 @@ target 'multilingual' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   pod 'RNI18n', :path => '../node_modules/react-native-i18n'
+  pod 'react-native-restart', :path => '../node_modules/react-native-restart'
   
   target 'multilingualTests' do
     inherit! :complete

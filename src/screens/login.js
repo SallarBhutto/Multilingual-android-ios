@@ -3,7 +3,7 @@ import {View, TouchableOpacity, Image, I18nManager} from 'react-native';
 import {TextView, Input, Button} from '../components';
 import {images} from '../assets';
 import Styles from '../styles';
-import I18n from '../i18n.js';
+import I18n from '../i18n';
 import AsyncStorage from '@react-native-community/async-storage';
 import RNRestart from 'react-native-restart';
 class Login extends Component {
@@ -12,27 +12,45 @@ class Login extends Component {
     this.state = {
       currentLanguage: true,
     };
+    this.setDefaultLanguage();
   }
+
+  componentDidMount = () => {
+    //AsyncStorage.removeItem('localeCode');
+    console.log('isRTL: ', I18nManager.isRTL);
+  };
+
+  setDefaultLanguage = async () => {
+    const {currentLanguage} = this.state;
+    const value = await AsyncStorage.getItem('localeCode');
+    console.log('value un storage componentDidMount: ', value);
+    if (value !== null) {
+      if (value.indexOf('ar') === 0) {
+        //if user has set arabic
+        I18n.locale = 'ar';
+        this.setState({currentLanguage: !currentLanguage});
+      } else {
+        // if user has set english
+        I18n.locale = 'en';
+        this.setState({currentLanguage: !currentLanguage});
+      }
+    }
+  };
 
   restart = () => {
     RNRestart.Restart();
   };
 
   onLanguageChange = async (languageCode) => {
-    const {currentLanguage} = this.state;
-    I18n.locale = languageCode;
-    let done = await AsyncStorage.setItem('localeCode', languageCode);
-    this.setState({currentLanguage: !currentLanguage});
-    setTimeout(() => {
-      this.restart();
-    }, 3000);
-
-    // const isRTL = languageCode.indexOf('ar') === 0 ? true : false;
-    // I18nManager.forceRTL(isRTL);
+    await AsyncStorage.setItem('localeCode', languageCode);
+    const isRTL = languageCode.indexOf('ar') === 0 ? true : false;
+    I18nManager.forceRTL(isRTL);
+    this.restart();
   };
 
   render() {
     const {navigation} = this.props;
+    console.log('while render', I18n.locale);
     return (
       <View style={Styles.container}>
         {/* logo */}
@@ -44,10 +62,11 @@ class Login extends Component {
         {/* input fields */}
         <TextView
           style={{
-            width: '100%',
+            width: '90%',
             textAlign: 'center',
             marginVertical: 20,
             fontWeight: 'bold',
+            alignSelf: 'center',
           }}>
           {I18n.t('welcome')}
         </TextView>
@@ -98,11 +117,13 @@ class Login extends Component {
             onPress={() => this.onLanguageChange('ar')}
             style={{width: '20%'}}
             title="Arabic"
+            disabled={I18n.locale == 'ar' ? true : false}
           />
           <Button
             onPress={() => this.onLanguageChange('en')}
             style={{width: '20%'}}
             title="English"
+            disabled={I18n.locale == 'en' ? true : false}
           />
         </View>
       </View>
