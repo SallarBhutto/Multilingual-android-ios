@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image, TouchableOpacity} from 'react-native';
+import {View, Image, TouchableOpacity, Platform, StatusBar} from 'react-native';
 import {TextView, Input, Button} from '../components';
 import {images, icons} from '../assets';
 import Styles from '../styles';
@@ -12,18 +12,17 @@ class Signup extends Component {
 
   render() {
     const {navigation} = this.props;
+    console.log('StatusBar.currentHeight: ', StatusBar.currentHeight);
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          width: '100%',
-          backgroundColor: 'white',
-        }}>
+      <View style={Styles.container}>
         {/* Back icon */}
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          style={{position: 'absolute', top: 10, left: 5}}>
+          style={{
+            position: 'absolute',
+            top: Platform.OS == 'ios' ? 40 : StatusBar.currentHeight,
+            left: 5,
+          }}>
           <Image
             source={icons.back}
             style={{
