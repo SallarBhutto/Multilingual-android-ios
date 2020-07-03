@@ -7,9 +7,7 @@ import Styles from '../styles';
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      oho: false,
-    };
+    this.state = {};
   }
 
   render() {
@@ -22,27 +20,31 @@ class Login extends Component {
           width: '100%',
           backgroundColor: 'white',
         }}>
+        {/* logo */}
         <Image
           source={images.logo}
           style={{width: 270, height: 100, alignSelf: 'center'}}
         />
+
+        {/* input fields */}
         <TextView
           style={{
             width: '100%',
             textAlign: 'center',
-            //fontSize: 30,
             marginVertical: 20,
             fontWeight: 'bold',
-            //color: 'grey',
           }}>
           Welcome to Code-along session 3rd July 2020
         </TextView>
+
         <Input style={Styles.input} placeholder="Enter username" />
         <Input
           style={Styles.input}
           placeholder="Enter password"
           secureTextEntry={true}
         />
+
+        {/* forgot password */}
         <TouchableOpacity onPress={null} style={{width: '90%', marginTop: 5}}>
           <TextView
             style={{
@@ -52,8 +54,10 @@ class Login extends Component {
           </TextView>
         </TouchableOpacity>
 
+        {/* login button     */}
         <Button title="LOGIN" style={{marginTop: 20}} />
 
+        {/* singup text view     */}
         <View
           style={{alignItems: 'center', alignSelf: 'center', marginTop: 20}}>
           <TextView style={{textAlign: 'center', width: '100%'}}>
