@@ -6,7 +6,7 @@ Master branch has the starter code for React Native Multilingual App Code-alog s
 
 
 Installation:
-1. Clone the repo "git clone {repo-url}"
+1. Clone the repo "git clone https://github.com/SallarBhutto/multilingual.git"
 2. Go to root directory of the project "cd multilingual"
 3. Install node-modules "yarn or npm install"
 
