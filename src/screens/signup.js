@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {View, Image, TouchableOpacity, Platform, StatusBar} from 'react-native';
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  Platform,
+  StatusBar,
+  I18nManager,
+} from 'react-native';
 import {TextView, Input, Button} from '../components';
 import {images, icons} from '../assets';
 import Styles from '../styles';
@@ -27,6 +34,7 @@ class Signup extends Component {
             style={{
               width: 30,
               height: 30,
+              transform: [{scaleX: I18nManager.isRTL ? -1 : 1}],
             }}
           />
         </TouchableOpacity>
