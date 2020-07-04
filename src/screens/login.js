@@ -12,13 +12,8 @@ class Login extends Component {
     this.state = {
       currentLanguage: true,
     };
-    this.setDefaultLanguage();
+    //this.setDefaultLanguage();
   }
-
-  componentDidMount = () => {
-    //AsyncStorage.removeItem('localeCode');
-    console.log('isRTL: ', I18nManager.isRTL);
-  };
 
   setDefaultLanguage = async () => {
     const {currentLanguage} = this.state;
@@ -117,13 +112,13 @@ class Login extends Component {
             onPress={() => this.onLanguageChange('ar')}
             style={{width: '20%'}}
             title="Arabic"
-            disabled={I18n.locale == 'ar' ? true : false}
+            disabled={I18n.locale.indexOf('ar') == 0 ? true : false}
           />
           <Button
             onPress={() => this.onLanguageChange('en')}
             style={{width: '20%'}}
             title="English"
-            disabled={I18n.locale == 'en' ? true : false}
+            disabled={I18n.locale.indexOf('en') == 0 ? true : false}
           />
         </View>
       </View>

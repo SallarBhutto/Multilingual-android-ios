@@ -4,49 +4,40 @@ import {images} from '../assets';
 import Styles from '../styles';
 import I18n from '../i18n';
 import AsyncStorage from '@react-native-community/async-storage';
-import RNRestart from 'react-native-restart';
 
 class AuthLoading extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentLanguage: true,
-    };
+    this.state = {};
     this.getDefaultLocale();
   }
-
-  componentDidMount = () => {};
 
   getDefaultLocale = async () => {
     const {navigation} = this.props;
     try {
       const value = await AsyncStorage.getItem('localeCode');
-      console.log('value un storage in 118n: ', value);
       if (value !== null) {
-        const isRTL = value.indexOf('ar') === 0 ? true : false; //if value is 'en' then it isRTL will be false
+        let isRTL = value.indexOf('ar') === 0 ? true : false; //if value is 'en' then it isRTL will be false
+        console.log('isRTL in null != in auth', isRTL);
         I18nManager.forceRTL(isRTL);
-        console.log('isRTL: ', I18nManager.isRTL);
-        console.log('final locale in getLang 118n: ', I18n.locale);
-        navigation.navigate('Login');
+        I18n.locale = value;
+        setTimeout(() => {
+          navigation.navigate('Login');
+        }, 500);
       } else {
         // if user is opening the app first time
-        let currentLocale = I18n.currentLocale();
+        let currentLocale = I18n.locale;
         await AsyncStorage.setItem('localeCode', currentLocale);
-        console.log('currentLocale 118n: ', currentLocale);
-        console.log(
-          'check 118n: ',
-          currentLocale.indexOf('ar') === 0 ? true : false,
-        );
-        const isRTL = currentLocale.indexOf('ar') === 0 ? true : false;
+        let isRTL = currentLocale.indexOf('ar') === 0 ? true : false;
         I18nManager.forceRTL(isRTL);
-        navigation.navigate('Login');
+        setTimeout(() => {
+          navigation.navigate('Login');
+        }, 500);
       }
     } catch (err) {}
   };
 
   render() {
-    const {navigation} = this.props;
-    console.log('while render', I18n.locale);
     return (
       <View style={Styles.container}>
         <Image
