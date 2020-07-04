@@ -17,24 +17,24 @@ class AuthLoading extends Component {
     try {
       const value = await AsyncStorage.getItem('localeCode');
       if (value !== null) {
-        let isRTL = value.indexOf('ar') === 0 ? true : false; //if value is 'en' then it isRTL will be false
-        console.log('isRTL in null != in auth', isRTL);
+        let isRTL = value.indexOf('ar') === 0 ? true : false; //if value is 'en' then value.indexOf('ar') will be false
         I18nManager.forceRTL(isRTL);
         I18n.locale = value;
-        setTimeout(() => {
-          navigation.navigate('Login');
-        }, 500);
+        navigation.navigate('Login');
+        // setTimeout(() => {
+        //   navigation.navigate('Login');
+        // }, 500);
       } else {
         // if user is opening the app first time
         let currentLocale = I18n.locale;
         await AsyncStorage.setItem('localeCode', currentLocale);
         let isRTL = currentLocale.indexOf('ar') === 0 ? true : false;
         I18nManager.forceRTL(isRTL);
-        setTimeout(() => {
-          navigation.navigate('Login');
-        }, 500);
+        navigation.navigate('Login');
       }
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   render() {

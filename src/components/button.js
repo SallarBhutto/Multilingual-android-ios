@@ -4,15 +4,7 @@ import {TextView} from './index';
 import I18n from '../i18n';
 
 const Button = (props) => {
-  const {
-    title,
-    style = {},
-    hasImage,
-    image,
-    textStyle = {},
-    onPress,
-    disabled = false,
-  } = props;
+  const {title, style = {}, textStyle = {}, onPress, disabled = false} = props;
   return (
     <TouchableOpacity
       disabled={disabled}

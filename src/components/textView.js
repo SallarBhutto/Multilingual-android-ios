@@ -6,7 +6,7 @@ const TextView = (props) => {
   const {text, style = {}, onPress} = props;
   return (
     <Text onPress={onPress} style={[{fontSize: 16, ...style}]}>
-      {props.children}
+      {I18n.t(`${props.children}`)}
     </Text>
   );
 };

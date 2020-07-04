@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {View, TouchableOpacity, Image, I18nManager} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  Switch,
+  I18nManager,
+  Alert,
+} from 'react-native';
 import {TextView, Input, Button} from '../components';
 import {images} from '../assets';
 import Styles from '../styles';
@@ -11,26 +18,9 @@ class Login extends Component {
     super(props);
     this.state = {
       currentLanguage: true,
+      isRTL: true,
     };
-    //this.setDefaultLanguage();
   }
-
-  setDefaultLanguage = async () => {
-    const {currentLanguage} = this.state;
-    const value = await AsyncStorage.getItem('localeCode');
-    console.log('value un storage componentDidMount: ', value);
-    if (value !== null) {
-      if (value.indexOf('ar') === 0) {
-        //if user has set arabic
-        I18n.locale = 'ar';
-        this.setState({currentLanguage: !currentLanguage});
-      } else {
-        // if user has set english
-        I18n.locale = 'en';
-        this.setState({currentLanguage: !currentLanguage});
-      }
-    }
-  };
 
   restart = () => {
     RNRestart.Restart();
@@ -40,12 +30,13 @@ class Login extends Component {
     await AsyncStorage.setItem('localeCode', languageCode);
     const isRTL = languageCode.indexOf('ar') === 0 ? true : false;
     I18nManager.forceRTL(isRTL);
-    this.restart();
+    setTimeout(() => {
+      this.restart();
+    }, 500);
   };
 
   render() {
     const {navigation} = this.props;
-    console.log('while render', I18n.locale);
     return (
       <View style={Styles.container}>
         {/* logo */}
@@ -79,7 +70,7 @@ class Login extends Component {
             style={{
               alignSelf: 'flex-end',
             }}>
-            Forgot Password?
+            Forgot password?
           </TextView>
         </TouchableOpacity>
 
@@ -88,14 +79,16 @@ class Login extends Component {
 
         {/* singup text view     */}
         <View
-          style={{alignItems: 'center', alignSelf: 'center', marginTop: 20}}>
-          <TextView style={{textAlign: 'center', width: '100%'}}>
-            Not a member yet?{' '}
-            <TextView
-              onPress={() => navigation.navigate('Signup')}
-              style={{color: 'blue'}}>
-              Signup
-            </TextView>
+          style={{
+            alignSelf: 'center',
+            marginTop: 20,
+            flexDirection: 'row',
+          }}>
+          <TextView style={{textAlign: 'center'}}>Not a member yet? </TextView>
+          <TextView
+            onPress={() => navigation.navigate('Signup')}
+            style={{textAlign: 'center', color: 'blue'}}>
+            Signup
           </TextView>
         </View>
 
