@@ -21,9 +21,6 @@ class AuthLoading extends Component {
         I18nManager.forceRTL(isRTL);
         I18n.locale = value;
         navigation.navigate('Login');
-        // setTimeout(() => {
-        //   navigation.navigate('Login');
-        // }, 500);
       } else {
         // if user is opening the app first time
         let currentLocale = I18n.locale;
